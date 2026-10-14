@@ -52,6 +52,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Bannable BASS_Init hook branch — kept as a separate, explicit input.
+    # See https://github.com/gmaxpwnage/nix-osu-stable/tree/bass-hook
+    nix-osu-stable = {
+      url = "github:gmaxpwnage/nix-osu-stable/bass-hook";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-grok-build = {
       url = "github:gaavin/nix-grok-build";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -104,6 +111,7 @@
       nix-spotify-aarch64,
       nix-osu-lazer-aarch64,
       nix-osu-lazer,
+      nix-osu-stable,
       nix-grok-build,
       nix-pipewire-patched,
       nix-deepseek,
@@ -161,6 +169,8 @@
                   nix-battle-net.homeModules.battle-net
                   nix-epic-games-launcher.homeModules.epic-games-launcher
                   nix-osu-lazer.homeModules.nix-osu-lazer
+                  nix-osu-stable.homeModules.osu-stable
+                  ./osu-stable.nix
                 ]
                 ++ nixpkgs.lib.optionals (system == "aarch64-linux") [
                   nix-spotify-aarch64.homeModules.nix-spotify-aarch64
