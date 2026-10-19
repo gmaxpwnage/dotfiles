@@ -221,6 +221,13 @@
     enable = true;
     cacheDir = "/var/cache/ccache";
   };
+  # 26.11's ensure-wrapper-integrity requires every security.wrapper source to
+  # be an ELF; programs.ccache's nix-ccache wrapper is a setgid Perl script, so
+  # the system check aborts with "nix-ccache.pl is not an ELF!". Nothing here
+  # runs nix-ccache, and the cache dir and sandbox path below are all that the
+  # kernel builds need, so drop the wrapper rather than the cache. One line to
+  # restore once nixpkgs ships an ELF launcher (master still does not).
+  security.wrappers.nix-ccache.enable = false;
   nix.settings.extra-sandbox-paths = [ "/var/cache/ccache" ];
   nix.settings.trusted-users = [ "root" "max" ];
 
