@@ -1,18 +1,18 @@
 diff -Naur a/plugins/gpu/CMakeLists.txt b/plugins/gpu/CMakeLists.txt
---- a/plugins/gpu/CMakeLists.txt	2026-08-04 06:51:30.000000000 -0230
-+++ b/plugins/gpu/CMakeLists.txt	2026-08-24 10:58:14.803671111 -0230
-@@ -9,7 +9,7 @@
- endif()
+--- a/plugins/gpu/CMakeLists.txt	2026-10-08 08:49:00.000000000 -0230
++++ b/plugins/gpu/CMakeLists.txt	2026-10-19 16:31:42.757213142 -0230
+@@ -12,7 +12,7 @@
+     include(CheckIncludeFile)
+     check_include_file("drm/xe_drm.h" HAVE_XE_DRM_H)
  
- if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
 -    target_sources(ksystemstats_plugin_gpu PRIVATE LinuxAmdGpu.cpp LinuxIntelGpu.cpp LinuxNvidiaGpu.cpp LinuxBackend.cpp NvidiaGpu.cpp NvidiaSmiProcess.cpp)
 +    target_sources(ksystemstats_plugin_gpu PRIVATE LinuxAmdGpu.cpp LinuxAsahiGpu.cpp LinuxIntelGpu.cpp LinuxNvidiaGpu.cpp LinuxBackend.cpp NvidiaGpu.cpp NvidiaSmiProcess.cpp)
  
-     add_executable(ksystemstats_intel_helper IntelHelper.cpp)
-     configure_file(IntelHelperLocation.h.cmake IntelHelperLocation.h)
+     if(HAVE_XE_DRM_H)
+         target_sources(ksystemstats_plugin_gpu PRIVATE LinuxXeGpu.cpp)
 diff -Naur a/plugins/gpu/LinuxAsahiGpu.cpp b/plugins/gpu/LinuxAsahiGpu.cpp
 --- a/plugins/gpu/LinuxAsahiGpu.cpp	1969-12-31 20:30:00.000000000 -0330
-+++ b/plugins/gpu/LinuxAsahiGpu.cpp	2026-08-24 10:58:20.913206103 -0230
++++ b/plugins/gpu/LinuxAsahiGpu.cpp	2026-10-19 16:31:42.757334352 -0230
 @@ -0,0 +1,50 @@
 +/*
 + * SPDX-FileCopyrightText: 2026 Max Power
@@ -66,7 +66,7 @@ diff -Naur a/plugins/gpu/LinuxAsahiGpu.cpp b/plugins/gpu/LinuxAsahiGpu.cpp
 +#include "moc_LinuxAsahiGpu.cpp"
 diff -Naur a/plugins/gpu/LinuxAsahiGpu.h b/plugins/gpu/LinuxAsahiGpu.h
 --- a/plugins/gpu/LinuxAsahiGpu.h	1969-12-31 20:30:00.000000000 -0330
-+++ b/plugins/gpu/LinuxAsahiGpu.h	2026-08-24 10:58:20.913018566 -0230
++++ b/plugins/gpu/LinuxAsahiGpu.h	2026-10-19 16:31:42.757403373 -0230
 @@ -0,0 +1,33 @@
 +/*
 + * SPDX-FileCopyrightText: 2026 Max Power
@@ -102,8 +102,8 @@ diff -Naur a/plugins/gpu/LinuxAsahiGpu.h b/plugins/gpu/LinuxAsahiGpu.h
 +    KSysGuard::SysFsSensor *m_usageSensor = nullptr;
 +};
 diff -Naur a/plugins/gpu/LinuxBackend.cpp b/plugins/gpu/LinuxBackend.cpp
---- a/plugins/gpu/LinuxBackend.cpp	2026-08-04 06:51:30.000000000 -0230
-+++ b/plugins/gpu/LinuxBackend.cpp	2026-08-24 10:58:25.867658867 -0230
+--- a/plugins/gpu/LinuxBackend.cpp	2026-10-08 08:49:00.000000000 -0230
++++ b/plugins/gpu/LinuxBackend.cpp	2026-10-19 16:31:42.757569563 -0230
 @@ -10,9 +10,12 @@
  
  #include <libudev.h>
@@ -116,8 +116,8 @@ diff -Naur a/plugins/gpu/LinuxBackend.cpp b/plugins/gpu/LinuxBackend.cpp
 +#include "LinuxAsahiGpu.h"
  #include "LinuxIntelGpu.h"
  #include "LinuxNvidiaGpu.h"
- #include "debug.h"
-@@ -78,6 +81,38 @@
+ #ifdef HAVE_XE_DRM_H
+@@ -97,6 +100,38 @@
      }
  
      udev_enumerate_unref(enumerate);
