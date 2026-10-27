@@ -137,8 +137,9 @@ in
     consoleLogLevel = 7;
 
     initrd = {
+      # systemd is the only initrd implementation as of NixOS 26.11, so
+      # boot.initrd.systemd.enable no longer exists.
       systemd = {
-        enable = true;
         # Root cannot mount until UFS is described; land in a shell on the UART
         emergencyAccess = true;
         # There is no TPM here, and this pulls tpm-crb into the initrd's

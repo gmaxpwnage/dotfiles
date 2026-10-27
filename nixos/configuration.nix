@@ -6,7 +6,8 @@
 
 {
   boot = {
-    initrd.systemd.enable = true;
+    # systemd is the only initrd implementation as of NixOS 26.11, so
+    # boot.initrd.systemd.enable no longer exists (scripted initrd was removed).
     initrd.services.lvm.enable = true;
     kernelParams = [
       "quiet"
