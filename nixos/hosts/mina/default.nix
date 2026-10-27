@@ -138,6 +138,12 @@
   };
   users.users.max.extraGroups = [ "gamemode" ];
 
+  # Per-game micro-compositor: render at a fixed internal resolution and let
+  # gamescope upscale (FSR/NIS) to the 4K panel, or cap framerate and hand the
+  # game a fake resolution for a windowed session. Only mina has the GPU and
+  # the Steam library this is for, so it stays off the other hosts.
+  programs.gamescope.enable = true;
+
   # air stays off this; it uses hardware.asahi.setupAsahiSound instead.
   #
   # Stock PipeWire cannot hold the 128-sample quantum below on this HDA codec:
