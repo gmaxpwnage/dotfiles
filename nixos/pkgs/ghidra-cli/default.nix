@@ -21,6 +21,7 @@
   makeWrapper,
   pkg-config,
   openssl,
+  zstd,
   ghidra,
   jdk21,
 }:
@@ -48,7 +49,13 @@ rustPlatform.buildRustPackage rec {
     makeWrapper
     pkg-config
   ];
-  buildInputs = [ openssl ];
+  # The zstd dependency's zstd-sys build script probes pkg-config for
+  # libzstd rather than building its own copy, so the probe needs a libzstd
+  # to find.
+  buildInputs = [
+    openssl
+    zstd
+  ];
 
   # The test suite drives a real Ghidra install and expects to bind sockets.
   doCheck = false;
