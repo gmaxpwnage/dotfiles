@@ -75,11 +75,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    grok-bot-nix = {
-      url = "github:d-513/grok-bot-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -116,7 +111,6 @@
       nix-grok-build,
       nix-pipewire-patched,
       nix-deepseek,
-      grok-bot-nix,
       disko,
       nixos-apple-silicon,
       claude-code,
@@ -142,7 +136,6 @@
               nixpkgs.overlays = [
                 claude-code.overlays.default
                 helium-browser.overlays.default
-                grok-bot-nix.overlays.default
                 nix-osu-lazer.overlays.default
                 nix-pipewire-patched.overlays.default
                 (final: _prev: {

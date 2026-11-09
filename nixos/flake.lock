@@ -134,26 +134,6 @@
         "url": "https://flakehub.com/f/DeterminateSystems/flake-schemas/%3D0.5.0.tar.gz"
       }
     },
-    "grok-bot-nix": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1794025236,
-        "narHash": "sha256-B6S0C0YIDWXCJq7Uz0sB1PvNjW7u72fA2qr6Sn/y6IY=",
-        "owner": "d-513",
-        "repo": "grok-bot-nix",
-        "rev": "a35389a32df400de44c139cb88dc0fd5b9b05905",
-        "type": "github"
-      },
-      "original": {
-        "owner": "d-513",
-        "repo": "grok-bot-nix",
-        "type": "github"
-      }
-    },
     "helium-browser": {
       "inputs": {
         "nixpkgs": [
@@ -527,7 +507,6 @@
         "claude-code": "claude-code",
         "disko": "disko",
         "firefox-addons": "firefox-addons",
-        "grok-bot-nix": "grok-bot-nix",
         "helium-browser": "helium-browser",
         "home-manager": "home-manager_2",
         "nix-battle-net": "nix-battle-net",

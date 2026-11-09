@@ -32,7 +32,6 @@ in
         picom
         android-tools
         htop
-        grok-bot
         claude-code
         helium
         python3
