@@ -37,6 +37,7 @@ in
         python3
         python3Packages.tkinter
         arduino-cli
+        esptool
         kdePackages.breeze-gtk
         nil
         nixfmt
